@@ -1,0 +1,45 @@
+﻿<Window x:Name="test1" x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Takakaze BOX" Height="768" Width="1366" Foreground="White" WindowStyle="SingleBorderWindow"
+        Icon ="C:\Users\10698\Documents\Visual Studio 2017\Projects\WindowsFormsApp2\WpfApp1\bin\Debug\1.ico">
+    <Window.Background>
+        <ImageBrush ImageSource="2017-06-26.png"/>
+    </Window.Background>
+    <GroupBox>
+        <StackPanel>
+            <Button x:Name="button1" Click="button1_Click"  Content="openfile" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" RenderTransformOrigin="0.5,0.469">
+                <Button.Background>
+                    <ImageBrush ImageSource="Sunset.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="button2" Click="button2_Click" Content="去bom头" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+                <Button.Background>
+                    <ImageBrush ImageSource="Sunset.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="button3" Content="output" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" Click="button3_Click" RenderTransformOrigin="0.5,0.5">
+                <Button.Background>
+                    <ImageBrush ImageSource="Sunset.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="button4" Content="fileinfo" HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" Click="button4_Click" RenderTransformOrigin="0.5,0.5">
+                <Button.Background>
+                    <ImageBrush ImageSource="Sunset.png"/>
+                </Button.Background>
+            </Button>
+            <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="651" Margin="773,-240,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="true"/>
+            <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="175,-651,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="true"/>
+            <TextBlock TextWrapping="Wrap" Margin="0,-32,0,0">
+                <TextBlock.Inlines>
+                    Copyright Takakaze<Run Text="TM" BaselineAlignment="Texttop" FontSize="8px"></Run>
+                    <Run Text="&#13;Alpha ver0.41.7.5.14.35"></Run>  
+                </TextBlock.Inlines>
+            </TextBlock>
+        </StackPanel>
+    </GroupBox>
+</Window>
