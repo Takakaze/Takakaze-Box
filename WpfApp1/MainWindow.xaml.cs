@@ -36,7 +36,7 @@ namespace WpfApp1
             /// </summary>
             /// <param name="path">文件地址</param>
             /// <returns>转换后的byte数组</returns>
-            public static byte[] File2Bytes(string path)
+            public static async Task<byte[]> File2Bytes(string path)
             {
                 if (!System.IO.File.Exists(path))
                 {
@@ -47,12 +47,19 @@ namespace WpfApp1
                 byte[] buff = new byte[fi.Length];
 
                 FileStream fs = fi.OpenRead();
-                fs.Read(buff, 0, Convert.ToInt32(fs.Length));
-                fs.Close();
+                // fs.Read(buff, 0, Convert.ToInt32(fs.Length));
+                await Task.Run(() => {
+                    fs.Read(buff, 0, Convert.ToInt32(fs.Length));
+                    fs.Close();
+                });
+               // fs.Close();
 
                 return buff;
             }
-
+            void fs1(byte[] buff,FileStream fs)
+            {
+                fs.Read(buff, 0, Convert.ToInt32(fs.Length));
+            }
             /// <summary>
             /// 将byte数组转换为文件并保存到指定地址
             /// </summary>
@@ -77,7 +84,7 @@ namespace WpfApp1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private async void button1_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = @"文本文档|*.txt|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
@@ -88,7 +95,7 @@ namespace WpfApp1
                 string str = sr.ReadToEnd();
                 textbox1.Text = str;
                 UTF8Encoding utf8 = new UTF8Encoding();
-                byte[] buff = FileBinaryConvertHelper.File2Bytes(ofd.FileName);
+                byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
                 //byte[] buffer = utf8.GetBytes(str);
                 list1.Add(new files {
                     content=buff,
@@ -97,10 +104,13 @@ namespace WpfApp1
                 list1[0].content = new byte[buff.Length];
                 list1[0].content = buff;
                 string msg = "";
-                foreach (var item in buff)
-                {
-                    msg+=($"{item:X2} ");
-                }
+                await Task.Run(()=>{
+                    foreach (var item in buff)
+                    {
+                        msg += ($"{item:X2} ");
+                    }
+                });
+                
               //  string msg = string.Format("{0}",buffer);
                 textbox2.Text = msg;
             }
@@ -175,6 +185,11 @@ namespace WpfApp1
             str += ($"文件属性：{fi.Attributes}\n");
             str += ($"文件路径：{list1[0].filename}");
             textbox2.Text = str;
+        }
+
+        private void textbox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
