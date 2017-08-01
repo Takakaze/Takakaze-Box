@@ -191,9 +191,16 @@ namespace WpfApp1
             textbox2.Text = str;
         }
 
-        private void textbox2_TextChanged(object sender, TextChangedEventArgs e)
+        private void textbox1_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            byte[] buff = new byte[textbox1.MaxLength];
+            buff = Encoding.UTF8.GetBytes(textbox1.Text);
+            string msg = "";
+            foreach (var item in buff)
+            {
+                msg += ($"{item:X2} ");
+            }
+            textbox2.Text = msg;
         }
     }
 }
