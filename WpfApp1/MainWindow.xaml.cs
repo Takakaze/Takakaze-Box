@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Security.Permissions;
 
 namespace WpfApp1
 {
@@ -44,15 +45,16 @@ namespace WpfApp1
                 }
 
                 FileInfo fi = new FileInfo(path);
-                byte[] buff = new byte[fi.Length];
-
                 FileStream fs = fi.OpenRead();
+                byte[] buff = new byte[fs.Length];
+                //FileStream fs = fi.OpenRead();
                 // fs.Read(buff, 0, Convert.ToInt32(fs.Length));
-                await Task.Run(() => {
+                await Task.Run(() => 
+                {
                     fs.Read(buff, 0, Convert.ToInt32(fs.Length));
                     fs.Close();
                 });
-               // fs.Close();
+                // fs.Close();
 
                 return buff;
             }
@@ -113,6 +115,7 @@ namespace WpfApp1
                 
               //  string msg = string.Format("{0}",buffer);
                 textbox2.Text = msg;
+                sr.Close();
             }
         }
         /// <summary>
@@ -155,16 +158,17 @@ namespace WpfApp1
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = @"文本文档|*.txt|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
-            Nullable<bool> result = sfd.ShowDialog();
+            sfd.Filter = @"文本文档|*.txt|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+            bool? result = sfd.ShowDialog();
             if (result == true)
             {
-                using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
+                using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
                 {
                     using (StreamWriter wt = new StreamWriter(fs, new UTF8Encoding(false)))
                     {
                         string str = Encoding.UTF8.GetString(list1[0].content);
                         wt.Write(str);
+                        wt.Close();
                     }
                 }
             }
