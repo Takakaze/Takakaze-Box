@@ -180,15 +180,35 @@ namespace WpfApp1
         /// <param name="e"></param>
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            FileInfo fi = new FileInfo(list1[0].filename);
-            string str = "";
-            str += ($"最后修改日期：{fi.LastWriteTime}\n");
-            str += ($"最后访问时间：{fi.LastAccessTime}\n");
-            str += ($"文件创建时间：{fi.CreationTime}\n");
-            str += ($"文件大小：{fi.Length}byte\n");
-            str += ($"文件属性：{fi.Attributes}\n");
-            str += ($"文件路径：{list1[0].filename}");
-            textbox2.Text = str;
+            try
+            {
+                FileInfo fi = new FileInfo(list1[0].filename);
+                string str = "";
+                string msg = "";
+                byte[] buff = new byte[textbox2.MaxLength];
+                str += ($"最后修改日期：{fi.LastWriteTime}\n");
+                str += ($"最后访问时间：{fi.LastAccessTime}\n");
+                str += ($"文件创建时间：{fi.CreationTime}\n");
+                str += ($"文件大小：{fi.Length}byte\n");
+                str += ($"文件属性：{fi.Attributes}\n");
+                str += ($"文件路径：{list1[0].filename}");
+                foreach (var item in list1[0].content)
+                {
+                    msg += ($"{item:X2} ");
+                }
+                if (textbox2.Text == str)
+                {
+                    textbox2.Text = msg;
+                }
+                else
+                {
+                    textbox2.Text = str;
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         private void textbox1_TextChanged(object sender, TextChangedEventArgs e)
@@ -201,6 +221,11 @@ namespace WpfApp1
                 msg += ($"{item:X2} ");
             }
             textbox2.Text = msg;
+        }
+
+        private void textbox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
