@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -89,7 +90,7 @@ namespace WpfApp1
         private async void button1_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = @"文本文档|*.txt|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+            ofd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
             Nullable<bool> result = ofd.ShowDialog();
             if (result == true)
             {
@@ -158,7 +159,7 @@ namespace WpfApp1
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = @"文本文档|*.txt|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+            sfd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
             bool? result = sfd.ShowDialog();
             if (result == true)
             {
@@ -225,7 +226,11 @@ namespace WpfApp1
 
         private void textbox2_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            string str;
+            byte[] buff = new byte[textbox2.MaxLength];
+            str = textbox2.Text;
+            str = str.Replace(" ", "%");
+            string[] st = str.Split('%');
         }
     }
 }
