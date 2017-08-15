@@ -130,7 +130,9 @@ namespace WpfApp1
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button2_Click(object sender, RoutedEventArgs e)
-        {     
+        {
+            try
+            {
                 byte[] bombuffer = new byte[] { 0xef, 0xbb, 0xbf };
                 byte[] buffer = new byte[] { };
                 if (list1[0].content[0] == bombuffer[0] &&
@@ -155,6 +157,11 @@ namespace WpfApp1
                     string str = Encoding.UTF8.GetString(list1[0].content);
                     textbox1.Text = str;
                 }
+            }
+            catch
+            {
+                textbox2.Text = "ERROR X001:在未打开文件的情况下去BOM头！";
+            }
         }
 
         /// <summary>
@@ -164,20 +171,27 @@ namespace WpfApp1
         /// <param name="e"></param>
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
-            bool? result = sfd.ShowDialog();
-            if (result == true)
+            try
             {
-                using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+                bool? result = sfd.ShowDialog();
+                if (result == true)
                 {
-                    using (StreamWriter wt = new StreamWriter(fs, new UTF8Encoding(false)))
+                    using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
-                        string str = Encoding.UTF8.GetString(list1[0].content);
-                        wt.Write(str);
-                        wt.Close();
+                        using (StreamWriter wt = new StreamWriter(fs, new UTF8Encoding(false)))
+                        {
+                            string str = Encoding.UTF8.GetString(list1[0].content);
+                            wt.Write(str);
+                            wt.Close();
+                        }
                     }
                 }
+            }
+            catch
+            {
+                //textbox2.Text = "ERROR X002:不能保存空白！";
             }
         }
 
@@ -215,7 +229,7 @@ namespace WpfApp1
             }
             catch
             {
-
+                textbox2.Text = "ERROR X002:未打开文件无法查看文件信息！";
             }
         }
 
@@ -229,19 +243,19 @@ namespace WpfApp1
             byte[] buff = new byte[textbox1.MaxLength];
             buff = Encoding.UTF8.GetBytes(textbox1.Text);
             string msg = "";
-            for (int i = 0; i <= textbox1.MaxLength - 1; i++)
-            {
-                list1[0].content[i] = buff[i];
-            }
             foreach (var item in buff)
             {
                 msg += ($"{item:X2} ");
+            }
+            for (int i = 0; i <= textbox1.MaxLength - 1; i++)
+            {
+                list1[0].content[i] = buff[i];
             }
             textbox2.Text = msg;
         }
 
         /// <summary>
-        /// UTF-8自动翻译为字符串（尝试中）
+        /// UTF-8自动翻译为字符串（尝试中，未完成）
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
