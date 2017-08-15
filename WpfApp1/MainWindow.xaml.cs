@@ -131,7 +131,7 @@ namespace WpfApp1
         /// <param name="e"></param>
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            try
+        try
             {
                 byte[] bombuffer = new byte[] { 0xef, 0xbb, 0xbf };
                 byte[] buffer = new byte[] { };
@@ -147,7 +147,7 @@ namespace WpfApp1
                         len++;
                         buff[i - 3] = list1[0].content[i];
                     }
-                    list1[0].content = new byte[textbox2.MaxLength];
+                    list1[0].content = new byte[len];
                     for (int i = 0; i <= len - 1; i++)
                     {
                         list1[0].content[i] = buff[i];
