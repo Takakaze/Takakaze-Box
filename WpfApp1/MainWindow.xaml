@@ -32,6 +32,8 @@
                     <ImageBrush ImageSource="Sunset.png"/>
                 </Button.Background>
             </Button>
+            <Button x:Name="button5" Content="background change" HorizontalAlignment="Left" Height="40" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" Click="button5_Click" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+            </Button>
             <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="651" Margin="773,-240,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox1_TextChanged"/>
             <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="175,-651,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox2_TextChanged"/>
             <TextBlock TextWrapping="Wrap" Margin="0,-32,0,0">

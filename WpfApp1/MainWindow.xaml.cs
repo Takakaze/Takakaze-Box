@@ -59,15 +59,18 @@ namespace WpfApp1
 
                 return buff;
             }
+
             void fs1(byte[] buff,FileStream fs)
             {
                 fs.Read(buff, 0, Convert.ToInt32(fs.Length));
             }
+
             /// <summary>
             /// 将byte数组转换为文件并保存到指定地址
             /// </summary>
             /// <param name="buff">byte数组</param>
             /// <param name="savepath">保存地址</param>
+            /// 
             public static void Bytes2File(byte[] buff, string savepath)
             {
                 if (System.IO.File.Exists(savepath))
@@ -82,6 +85,7 @@ namespace WpfApp1
                 fs.Close();
             }
         }
+
         /// <summary>
         /// 读取文件
         /// </summary>
@@ -119,6 +123,7 @@ namespace WpfApp1
                 sr.Close();
             }
         }
+
         /// <summary>
         /// 去BOM头
         /// </summary>
@@ -140,7 +145,7 @@ namespace WpfApp1
                         len++;
                         buff[i - 3] = list1[0].content[i];
                     }
-                    list1[0].content = new byte[len];
+                    list1[0].content = new byte[textbox2.MaxLength];
                     for (int i = 0; i <= len - 1; i++)
                     {
                         list1[0].content[i] = buff[i];
@@ -151,6 +156,7 @@ namespace WpfApp1
                     textbox1.Text = str;
                 }
         }
+
         /// <summary>
         /// 输出文件
         /// </summary>
@@ -174,6 +180,7 @@ namespace WpfApp1
                 }
             }
         }
+
         /// <summary>
         /// 显示文件信息
         /// </summary>
@@ -212,11 +219,20 @@ namespace WpfApp1
             }
         }
 
+        /// <summary>
+        /// UTF-8自动翻译
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textbox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             byte[] buff = new byte[textbox1.MaxLength];
             buff = Encoding.UTF8.GetBytes(textbox1.Text);
             string msg = "";
+            for (int i = 0; i <= textbox1.MaxLength - 1; i++)
+            {
+                list1[0].content[i] = buff[i];
+            }
             foreach (var item in buff)
             {
                 msg += ($"{item:X2} ");
@@ -224,6 +240,11 @@ namespace WpfApp1
             textbox2.Text = msg;
         }
 
+        /// <summary>
+        /// UTF-8自动翻译为字符串（尝试中）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textbox2_TextChanged(object sender, TextChangedEventArgs e)
         {
             string str;
@@ -231,6 +252,25 @@ namespace WpfApp1
             str = textbox2.Text;
             str = str.Replace(" ", "%");
             string[] st = str.Split('%');
+        }
+
+        /// <summary>
+        /// 更换背景图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = @"所有文件|*.*";
+            Nullable<bool> result = ofd.ShowDialog();
+            if (result == true)
+            {
+                ImageBrush imageBrush = new ImageBrush();
+                imageBrush.ImageSource = new BitmapImage(new Uri(ofd.FileName, UriKind.Absolute));
+                imageBrush.Stretch = Stretch.Fill;//设置图像的显示格式  
+                this.Background = imageBrush;
+            }
         }
     }
 }
