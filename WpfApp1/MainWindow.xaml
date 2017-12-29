@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Takakaze BOX" Height="768" Width="1366" Foreground="White" WindowStyle="SingleBorderWindow"
-        Icon ="C:\Users\10698\Documents\Visual Studio 2017\Projects\WindowsFormsApp2\WpfApp1\bin\Debug\1.ico">
+        Title="Takakaze BOX" Height="768" Width="1366" Foreground="White" WindowStyle="SingleBorderWindow">
     <Window.Background>
         <ImageBrush ImageSource="2017-06-26.png"/>
     </Window.Background>
@@ -32,14 +31,14 @@
                     <ImageBrush ImageSource="Sunset.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="button5" Content="background change" HorizontalAlignment="Left" Height="40" Margin="0,0,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" Click="button5_Click" Background="Transparent" RenderTransformOrigin="0.5,0.5">
-            </Button>
-            <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="651" Margin="773,-280,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox1_TextChanged"/>
-            <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="175,-651,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox2_TextChanged"/>
+            <Button x:Name="button5" Content="background change" HorizontalAlignment="Left" Height="40" Margin="0,290,0,0" VerticalAlignment="Top" Width="138" Cursor="Hand" Click="button5_Click" Background="Transparent" RenderTransformOrigin="0.5,0.5"/>
+            <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="175,-620,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox2_TextChanged"/>
+            <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="651" Margin="773,-651,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox1_TextChanged"/>
             <TextBlock TextWrapping="Wrap" Margin="0,-32,0,0">
                 <TextBlock.Inlines>
-                    Copyright Takakaze<Run Text="TM" BaselineAlignment="Texttop" FontSize="8px"></Run>
-                    <Run Text="&#13;Alpha ver0.52.8.15.16.44"></Run>  
+                    Copyright Takakaze
+                    <Run Text="TM" BaselineAlignment="Texttop" FontSize="8px"></Run>
+                    <Run Text="&#13;Alpha ver0.52.8.15.16.44"></Run>
                 </TextBlock.Inlines>
             </TextBlock>
         </StackPanel>
