@@ -30,6 +30,7 @@ namespace WpfApp1
         }
 
         List<files> list1 = new List<files>();
+        private int saveres = 0;
 
         public class FileBinaryConvertHelper
         {
@@ -120,6 +121,7 @@ namespace WpfApp1
                 
               //  string msg = string.Format("{0}",buffer);
                 textbox2.Text = msg;
+                saveres = 0;
                 sr.Close();
             }
         }
@@ -184,6 +186,7 @@ namespace WpfApp1
                         {
                             string str = Encoding.UTF8.GetString(list1[0].content);
                             wt.Write(str);
+                            saveres = 1;
                             wt.Close();
                         }
                     }
@@ -252,6 +255,7 @@ namespace WpfApp1
                 list1[0].content[i] = buff[i];
             }
             textbox2.Text = msg;
+            saveres = 1;
         }
 
         /// <summary>
@@ -285,6 +289,38 @@ namespace WpfApp1
                 imageBrush.Stretch = Stretch.Fill;//设置图像的显示格式  
                 this.Background = imageBrush;
             }
+        }
+
+        private void EXIT(object sender, RoutedEventArgs e)
+        {
+            object obj = this;
+            if (saveres == 0)
+            {
+                MessageBoxResult mbr = MessageBox.Show("you have not saved the file, are you sure to exit?", "WARNING", MessageBoxButton.YesNoCancel);
+
+                if (mbr == MessageBoxResult.Yes)
+                {
+                    MainWindow mw = (MainWindow)obj;
+                    this.Close();
+                }
+                else if (mbr == MessageBoxResult.No)
+                {
+                    button3_Click(sender, e);
+                    this.Close();
+                }
+                else if (mbr == MessageBoxResult.Cancel)
+                {
+                }
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void Info(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Copyright Takakaze\n Alpha ver0.52.8.15.16.44","About",MessageBoxButton.OK);
         }
     }
 }
