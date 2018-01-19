@@ -30,7 +30,7 @@ namespace WpfApp1
         }
 
         List<files> list1 = new List<files>();
-        private int saveres = 0;
+        private int saveres = 1;
 
         public class FileBinaryConvertHelper
         {
@@ -94,36 +94,121 @@ namespace WpfApp1
         /// <param name="e"></param>
         private async void button1_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|python文件|*.py;|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
-            Nullable<bool> result = ofd.ShowDialog();
-            if (result == true)
+            if (saveres == 0)
             {
-                StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default);
-                string str = sr.ReadToEnd();
-                textbox1.Text = str;
-                UTF8Encoding utf8 = new UTF8Encoding();
-                byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
-                //byte[] buffer = utf8.GetBytes(str);
-                list1.Add(new files {
-                    content=buff,
-                    filename=ofd.FileName
-                });
-                list1[0].content = new byte[buff.Length];
-                list1[0].content = buff;
-                string msg = "";
-                await Task.Run(()=>{
-                    foreach (var item in buff)
+                MessageBoxResult mbr = MessageBox.Show("you have not saved the file, are you sure to create a new one before you save?", "WARNING", MessageBoxButton.YesNoCancel);
+
+                if (mbr == MessageBoxResult.Yes)
+                {
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|python文件|*.py;|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+                    Nullable<bool> result = ofd.ShowDialog();
+                    if (result == true)
                     {
-                        msg += ($"{item:X2} ");
+                        StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default);
+                        string str = sr.ReadToEnd();
+                        textbox1.Text = str;
+                        UTF8Encoding utf8 = new UTF8Encoding();
+                        byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
+                        //byte[] buffer = utf8.GetBytes(str);
+                        list1.Add(new files
+                        {
+                            content = buff,
+                            filename = ofd.FileName
+                        });
+                        list1[0].content = new byte[buff.Length];
+                        list1[0].content = buff;
+                        string msg = "";
+                        await Task.Run(() =>
+                        {
+                            foreach (var item in buff)
+                            {
+                                msg += ($"{item:X2} ");
+                            }
+                        });
+
+                        //  string msg = string.Format("{0}",buffer);
+                        textbox2.Text = msg;
+                        saveres = 0;
+                        sr.Close();
                     }
-                });
-                
-              //  string msg = string.Format("{0}",buffer);
-                textbox2.Text = msg;
-                saveres = 0;
-                sr.Close();
+                }
+                else if (mbr == MessageBoxResult.No)
+                {
+                    button3_Click(sender, e);
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|python文件|*.py;|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+                    Nullable<bool> result = ofd.ShowDialog();
+                    if (result == true)
+                    {
+                        StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default);
+                        string str = sr.ReadToEnd();
+                        textbox1.Text = str;
+                        UTF8Encoding utf8 = new UTF8Encoding();
+                        byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
+                        //byte[] buffer = utf8.GetBytes(str);
+                        list1.Add(new files
+                        {
+                            content = buff,
+                            filename = ofd.FileName
+                        });
+                        list1[0].content = new byte[buff.Length];
+                        list1[0].content = buff;
+                        string msg = "";
+                        await Task.Run(() =>
+                        {
+                            foreach (var item in buff)
+                            {
+                                msg += ($"{item:X2} ");
+                            }
+                        });
+
+                        //  string msg = string.Format("{0}",buffer);
+                        textbox2.Text = msg;
+                        saveres = 0;
+                        sr.Close();
+                    }
+                }
+                else if (mbr == MessageBoxResult.Cancel)
+                {
+                }
             }
+            else
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = @"文本文档|*.txt|批处理文件|*.bat|C/C++源文件|*.c;*.cpp|python文件|*.py;|PHP文件|*.php;|javascript文件|*.js;|网页文件|*.html;*.htm|所有文件|*.*";
+                Nullable<bool> result = ofd.ShowDialog();
+                if (result == true)
+                {
+                    StreamReader sr = new StreamReader(ofd.FileName, Encoding.Default);
+                    string str = sr.ReadToEnd();
+                    textbox1.Text = str;
+                    UTF8Encoding utf8 = new UTF8Encoding();
+                    byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
+                    //byte[] buffer = utf8.GetBytes(str);
+                    list1.Add(new files
+                    {
+                        content = buff,
+                        filename = ofd.FileName
+                    });
+                    list1[0].content = new byte[buff.Length];
+                    list1[0].content = buff;
+                    string msg = "";
+                    await Task.Run(() =>
+                    {
+                        foreach (var item in buff)
+                        {
+                            msg += ($"{item:X2} ");
+                        }
+                    });
+
+                    //  string msg = string.Format("{0}",buffer);
+                    textbox2.Text = msg;
+                    saveres = 0;
+                    sr.Close();
+                }
+            }
+           
         }
 
         /// <summary>
@@ -243,19 +328,25 @@ namespace WpfApp1
         /// <param name="e"></param>
         private void textbox1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            byte[] buff = new byte[textbox1.MaxLength];
+            saveres = 0;
+            byte[] buff = new byte[textbox2.MaxLength];
             buff = Encoding.UTF8.GetBytes(textbox1.Text);
             string msg = "";
+            list1.Add(new files
+            {
+                content = new byte[buff.Length],
+                filename = null
+            });
+            list1[0].content = new byte[buff.Length];
             foreach (var item in buff)
             {
                 msg += ($"{item:X2} ");
             }
-            for (int i = 0; i <= textbox1.MaxLength - 1; i++)
+            for (int i = 0; i <= buff.Length - 1; i++)
             {
                 list1[0].content[i] = buff[i];
             }
-            textbox2.Text = msg;
-            saveres = 1;
+            textbox2.Text = msg;     
         }
 
         /// <summary>
@@ -320,7 +411,36 @@ namespace WpfApp1
 
         private void Info(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbr = MessageBox.Show("Copyright Takakaze\n Alpha ver0.52.8.15.16.44","About",MessageBoxButton.OK);
+            MessageBoxResult mbr = MessageBox.Show("Copyright Takakaze\n Alpha ver0.53.1.19.12.00","About",MessageBoxButton.OK);
+        }
+
+        private void NEW(object sender, RoutedEventArgs e)
+        {
+            if (saveres == 0)
+            {
+                MessageBoxResult mbr = MessageBox.Show("you have not saved the file, are you sure to create a new one?", "WARNING", MessageBoxButton.YesNoCancel);
+
+                if (mbr == MessageBoxResult.Yes)
+                {
+                    textbox1.Text = null;
+                    textbox2.Text = null;
+                }
+                else if (mbr == MessageBoxResult.No)
+                {
+                    button3_Click(sender, e);
+                    textbox1.Text = null;
+                    textbox2.Text = null;
+                }
+                else if (mbr == MessageBoxResult.Cancel)
+                {
+                }
+            }
+            else
+            {
+                textbox1.Text = null;
+                textbox2.Text = null;
+            }
+            saveres = 1;
         }
     }
 }

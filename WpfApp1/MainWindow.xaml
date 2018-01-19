@@ -10,8 +10,9 @@
         <ImageBrush ImageSource="2017-06-26.png"/>
     </Window.Background>
     <StackPanel>
-        <Menu Margin="0,0,-1211,0" FontSize="35" FontFamily="Droid Sans Fallback" Background="Transparent">
+        <Menu Margin="0,0,10,0" FontSize="35" FontFamily="Droid Sans Fallback" Background="Transparent">
             <MenuItem FontFamily="Droid Sans Fallback" Background="Transparent" Header="File..">
+                <MenuItem FontFamily="Droid Sans Fallback" Header="new.." Background="Transparent" Click="NEW"></MenuItem>
                 <MenuItem FontFamily="Droid Sans Fallback" Header="open.." Background="Transparent" Click="button1_Click"></MenuItem>
                 <MenuItem FontFamily="Droid Sans Fallback" Header="save.." Background="Transparent" Click="button3_Click"></MenuItem>
                 <MenuItem FontFamily="Droid Sans Fallback" Header="exit" Background="Transparent" Click="EXIT"></MenuItem>
@@ -24,16 +25,16 @@
                 <MenuItem FontFamily="Droid Sans Fallback" Header="BGI change" Background="Transparent" Click="button5_Click"></MenuItem>
             </MenuItem>
             <MenuItem FontFamily="Droid Sans Fallback" Background="Transparent" Header="About">
-                <MenuItem FontFamily="Droid Sans Fallback" Header="info" Background="Transparent" Click="Info"></MenuItem>
+                <MenuItem FontFamily="Droid Sans Fallback" Header="info" Background="Transparent" Click="NEW"></MenuItem>
             </MenuItem>
         </Menu>
-        <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="249,40,-561,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="True" TextChanged="textbox2_TextChanged" RenderTransformOrigin="0.512,0.627"/>
-        <TextBox x:Name="textbox1" HorizontalAlignment="Left" Height="651" Margin="800,-651,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="False" TextChanged="textbox1_TextChanged"/>
+        <TextBox x:Name="textbox2" HorizontalAlignment="Left" Height="651" Margin="249,10,-561,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" IsReadOnly="True" TextChanged="textbox2_TextChanged" RenderTransformOrigin="0.512,0.627"/>
+        <TextBox x:Name="textbox1" CaretBrush="Aqua" HorizontalAlignment="Left" Height="651" Margin="800,-651,0,0" AcceptsTab="True" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="515" FontFamily="Droid Sans Fallback" FontSize="22" AcceptsReturn="True" IsReadOnly="False" TextChanged="textbox1_TextChanged"/>
         <TextBlock TextWrapping="Wrap" Margin="0,0,0,0">
             <TextBlock.Inlines>
                 Copyright Takakaze
                 <Run Text="TM" BaselineAlignment="Texttop" FontSize="8px"></Run>
-                <Run Text="&#13;Alpha ver0.52.8.15.16.44"></Run>
+                <Run Text="&#13;Alpha ver0.53.1.19.12.00"></Run>
             </TextBlock.Inlines>
         </TextBlock>
     </StackPanel>
