@@ -111,11 +111,15 @@ namespace WpfApp1
                         UTF8Encoding utf8 = new UTF8Encoding();
                         byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
                         //byte[] buffer = utf8.GetBytes(str);
-                        list1.Add(new files
+                        if (list1.Count == 0)
                         {
-                            content = buff,
-                            filename = ofd.FileName
-                        });
+                            list1.Add(new files
+                            {
+                                content = buff,
+                                filename = ofd.FileName
+                            });
+                        }
+                        list1[0].filename = ofd.FileName;
                         list1[0].content = new byte[buff.Length];
                         list1[0].content = buff;
                         string msg = "";
@@ -147,11 +151,15 @@ namespace WpfApp1
                         UTF8Encoding utf8 = new UTF8Encoding();
                         byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
                         //byte[] buffer = utf8.GetBytes(str);
-                        list1.Add(new files
+                        if (list1.Count == 0)
                         {
-                            content = buff,
-                            filename = ofd.FileName
-                        });
+                            list1.Add(new files
+                            {
+                                content = buff,
+                                filename = ofd.FileName
+                            });
+                        }
+                        list1[0].filename = ofd.FileName;
                         list1[0].content = new byte[buff.Length];
                         list1[0].content = buff;
                         string msg = "";
@@ -186,11 +194,15 @@ namespace WpfApp1
                     UTF8Encoding utf8 = new UTF8Encoding();
                     byte[] buff = await FileBinaryConvertHelper.File2Bytes(ofd.FileName);
                     //byte[] buffer = utf8.GetBytes(str);
-                    list1.Add(new files
+                    if (list1.Count == 0)
                     {
-                        content = buff,
-                        filename = ofd.FileName
-                    });
+                        list1.Add(new files
+                        {
+                            content = buff,
+                            filename = ofd.FileName
+                        });
+                    }
+                    list1[0].filename = ofd.FileName;
                     list1[0].content = new byte[buff.Length];
                     list1[0].content = buff;
                     string msg = "";
@@ -332,11 +344,10 @@ namespace WpfApp1
             byte[] buff = new byte[textbox2.MaxLength];
             buff = Encoding.UTF8.GetBytes(textbox1.Text);
             string msg = "";
-            list1.Add(new files
+            if (list1.Count == 0)
             {
-                content = new byte[buff.Length],
-                filename = null
-            });
+                list1.Add(new files{content = buff,filename = null});
+            }
             list1[0].content = new byte[buff.Length];
             foreach (var item in buff)
             {
